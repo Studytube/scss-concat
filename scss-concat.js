@@ -62,7 +62,7 @@ function defineExtension(filePath) {
     return filePath + '.css';
   }
 
-  throw new Error(`No file for module ${filePath}, ${JSON.stringify(errorTrancer)}`);
+  throw new Error(`No file for module ${filePath}`);
 }
 
 

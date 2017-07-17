@@ -1,6 +1,6 @@
 {
   "name": "scss-concat",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Tool to make concatenation of SCSS files.",
   "main": "scss-concat.js",
   "scripts": {
