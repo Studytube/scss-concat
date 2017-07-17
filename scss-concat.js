@@ -96,7 +96,7 @@ scssConcat.concat = function (options) {
   if (!options.src) {
     throw new Error('Please provide the src for concat method')
   }
-  const fullPath = path.join(__dirname, options.src);
+  const fullPath = path.join(process.cwd(), options.src);
   console.log('scssConcat in progress...')
   return concatScss(fullPath)
     .then(fileContent => {
