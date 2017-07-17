@@ -1,3 +1,31 @@
+const fs = require('fs');
+const path = require('path');
+
+function readFile(filePath) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, 'utf8', function (err, fileContent) {
+      if (err) {
+        return reject(err);
+      }
+
+      resolve(fileContent);
+    });
+  });
+}
+
+function writeFile(path, content) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(path, content, error => {
+      if (!error) {
+        return resolve();
+      }
+
+      return reject(error);
+    });
+  });
+}
+
+
 function getImports(content, baseDir) {
   const re = /@import ['"]([^'"]+)['"];/g;
   let imports = [];
@@ -5,8 +33,8 @@ function getImports(content, baseDir) {
     let filePath = m[1];
     let fileBaseDir = baseDir;
     if (filePath.includes('../../node_modules')) {
-        fileBaseDir = '';
-        filePath = filePath.replace('../../', '')
+      fileBaseDir = '';
+      filePath = filePath.replace('../../', '')
     }
 
     imports.push({
@@ -25,7 +53,7 @@ function defineExtension(filePath) {
   }
 
   let temp = filePath.split('/');
-  temp[temp.length - 1] =  '_' + temp[temp.length - 1];
+  temp[temp.length - 1] = '_' + temp[temp.length - 1];
   const dependancyPath = temp.join('/') + '.scss';
   if (fs.existsSync(dependancyPath)) {
     return dependancyPath;
@@ -64,5 +92,16 @@ function concatScss(fullFilePath) {
 }
 
 let scssConcat = {};
-scssConcat.concat = concatScss;
-module.export=scssConcat;
+scssConcat.concat = function (options) {
+  if (!options.src || !options.dest) {
+    throw new Error('Please provide src and dest in for concat method')
+  }
+  console.log('scssConcat in progress...')
+  return concatScss(options.src)
+    .then(fileContent => {
+      console.log(`scssConcat is done. Saving result to ${options.dest}`);
+      writeFile(options.dest, fileContent);
+      return options.dest;
+    });
+};
+module.exports = scssConcat;
