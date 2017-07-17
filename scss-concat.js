@@ -93,15 +93,21 @@ function concatScss(fullFilePath) {
 
 let scssConcat = {};
 scssConcat.concat = function (options) {
-  if (!options.src || !options.dest) {
-    throw new Error('Please provide src and dest in for concat method')
+  if (!options.src) {
+    throw new Error('Please provide the src for concat method')
   }
+  const fullPath = path.join(__dirname, options.src);
   console.log('scssConcat in progress...')
-  return concatScss(options.src)
+  return concatScss(fullPath)
     .then(fileContent => {
-      console.log(`scssConcat is done. Saving result to ${options.dest}`);
-      writeFile(options.dest, fileContent);
-      return options.dest;
+      console.log(`scssConcat is done.`);
+      if(options.dest) {
+        console.log(`Saving result to ${options.dest}`);
+        writeFile(options.dest, fileContent);
+        return options.dest;
+      }
+
+      return fileContent;
     });
 };
 module.exports = scssConcat;
