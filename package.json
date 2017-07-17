@@ -1,0 +1,24 @@
+{
+  "name": "scss-concat",
+  "version": "0.3.2",
+  "description": "Tool to make concatenation of SCSS files.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevermeister/scss-concat.git"
+  },
+  "keywords": [
+    "scss",
+    "concat",
+    "node"
+  ],
+  "author": "stevermeister",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevermeister/scss-concat/issues"
+  },
+  "homepage": "https://github.com/stevermeister/scss-concat#readme"
+}
