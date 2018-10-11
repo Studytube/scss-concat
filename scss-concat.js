@@ -32,9 +32,9 @@ function getImports(content, baseDir) {
   while ((m = re.exec(content)) !== null) {
     let filePath = m[1];
     let fileBaseDir = baseDir;
-    if (filePath.includes('../../node_modules')) {
+    if (filePath.includes(`..${path.sep}..${path.sep}node_modules`)) {
       fileBaseDir = '';
-      filePath = filePath.replace('../../', '')
+      filePath = filePath.replace(`..${path.sep}..${path.sep}`, '')
     }
 
     imports.push({
@@ -52,9 +52,9 @@ function defineExtension(filePath) {
     return justScss;
   }
 
-  let temp = filePath.split('/');
+  let temp = filePath.split(path.sep);
   temp[temp.length - 1] = '_' + temp[temp.length - 1];
-  const dependancyPath = temp.join('/') + '.scss';
+  const dependancyPath = temp.join(path.sep) + '.scss';
   if (fs.existsSync(dependancyPath)) {
     return dependancyPath;
   }
