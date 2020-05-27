@@ -52,7 +52,7 @@ function defineExtension(filePath) {
     return justScss;
   }
 
-  let temp = filePath.split('/');
+  let temp = filePath.split(/[\\\/]/);
   temp[temp.length - 1] = '_' + temp[temp.length - 1];
   const dependancyPath = temp.join('/') + '.scss';
   if (fs.existsSync(dependancyPath)) {
